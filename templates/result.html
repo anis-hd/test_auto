@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Tests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Generated Tests</h1>
+
+    {% if competency_tests %}
+        {% for test in competency_tests %}
+            <div class="test-section">
+                <h2>Competency: {{ test[0] }}</h2>
+                <p><strong>Question:</strong> {{ test[1] }}</p>
+                <form>
+                    <fieldset>
+                        <legend>Choices:</legend>
+                        {% for choice in test[2].split(", ") %}
+                            <label>
+                                <input type="radio" name="question_{{ loop.index }}_choice" value="{{ choice }}">
+                                {{ choice }}
+                            </label>
+                            <br>
+                        {% endfor %}
+                    </fieldset>
+                </form>
+                <p><strong>Correct Choice:</strong> {{ test[3] }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No tests generated or failed to generate tests.</p>
+    {% endif %}
+</body>
+</html>
